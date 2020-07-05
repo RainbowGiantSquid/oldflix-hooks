@@ -30,6 +30,17 @@ const Home = () => {
   ] = useHomeFetch();
   const [searchTerm, setDearchTerm] = useState("");
 
+  const loadMoreFilms = () => {
+    const searchEndpoint = `${API_URL}search/movie?api_key=${API_KEY}&query=${searchTerm}&page=${
+      currentPage + 1
+    }`;
+    const popularEndpoint = `${API_URL}movie/popular?api_key=${API_KEY}&page=${
+      currentPage + 1
+    }`;
+    const endpoint = searchTerm ? searchEndpoint : popularEndpoint;
+    fetchFilms(endpoint);
+  };
+
   //if th9e fist one (films[0]) is not there
   if (error) return <div>Something went wrong...</div>;
   if (!films[0]) return <Spinner />;
@@ -57,9 +68,10 @@ const Home = () => {
           />
         ))}
       </Grid>
-      <FilmThumb />
-      <Spinner />
-      <LoadMore />
+      {loading && <Spinner />}
+      {currentPage < totalPages && !loading && (
+        <LoadMore text="Load More" callback={loadMoreFilms} />
+      )}
     </>
   );
 };
