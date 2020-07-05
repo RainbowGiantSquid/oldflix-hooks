@@ -1,7 +1,6 @@
 import React from "react";
 import Logo1 from "../images/reactMovie_logo.png";
 import Logo2 from "../images/tmdb_logo.svg";
-import styled from "styled-components";
 
 import { StyledHeader, RMDBLogo, TMDBLogo } from "../styles/StyledHeader";
 

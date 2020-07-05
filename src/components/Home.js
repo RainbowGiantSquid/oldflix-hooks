@@ -22,9 +22,17 @@ const Home = () => {
   const [{ state, loading, error }, fetchFilms] = useHomeFetch();
 
   console.log(state);
+  //if th9e fist one (films[0]) is not there
+  if (error) return <div>Something went wrong...</div>;
+  if (!state.films[0]) return <Spinner />;
+
   return (
     <>
-      <HeroImage />
+      <HeroImage
+        image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${state.heroImage.backdrop_path}`}
+        title={state.heroImage.original_title}
+        text={state.heroImage.overview}
+      />
       <SearchBar />
       <Grid />
       <FilmThumb />
